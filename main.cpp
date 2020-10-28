@@ -278,12 +278,27 @@ int main(){
         
         
         cout<<"----------------------------------------"<<endl;
-        cout<<endl<<"The prime implicatns :"<<endl;
-        for (int i = 0;i<PI.size();i++) {
+        cout<<endl<<"The prime implicatns :"<<endl<<endl;;
+        for (int i=0;i<PI.size();i++) {
             cout<<PI[i].first<<"("<<PI[i].second<<")"<<endl;
         }
         
-        cout << "----------------------------" << endl;
+        cout<<"----------------------------"<<endl;
+        cout<<endl<<"The boolean equation for the prime implicatns :"<<endl;
+        string L="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        for(int j=0;j<PI.size();j++){
+            for(int i=0;i<v;i++){
+                if(PI[j].first[i]=='0')
+                    cout<<L[i]<<"'";
+                if(PI[j].first[i]=='1')
+                    cout<<L[i];
+            }
+            if(j!=PI.size()-1)
+                cout<<"+";
+        }
+        
+        cout<<endl<<endl<<"----------------------------"<<endl;
+        cout<<endl<<"Essential prime implicants :"<<endl<<endl;
                 vector<pair<string, string>> EPI;
                 vector <int> index;
 
@@ -305,6 +320,21 @@ int main(){
                     cout<<EPI[i].first<<"("<<EPI[i].second<<")"<<endl;
                 }
         //insert the rest of the main here
+        
+        cout<<"----------------------------"<<endl;
+        cout<<endl<<"The boolean equation for the Essential prime implicatns :"<<endl;
+        for(int j=0;j<EPI.size();j++){
+            for(int i=0;i<v;i++){
+                if(EPI[j].first[i]=='0')
+                    cout<<L[i]<<"'";
+                if(EPI[j].first[i]=='1')
+                    cout<<L[i];
+            }
+            if(j!=EPI.size()-1)
+                cout<<"+";
+        }
+        
+        cout<<endl<<endl;
     }
     else{
     cout << "Data in file is not correct according to the number of variables present please change the data in the file and try again"<< endl;
