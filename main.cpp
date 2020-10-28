@@ -117,7 +117,7 @@ vector<pair<string,string>> comparison (int v, vector<pair<string,string>> a, ve
                 check_aa[x]=false;
                 check_bb[y]=false;
                 changed[y].first[at]='_';
-                changed[y].second=a[x].second+","+b[x].second;
+                changed[y].second = a[x].second+","+b[y].second;
                 for(int j=0;j<group.size();j++){
                     if(group[j]==changed[y])
                         repetition=1;
