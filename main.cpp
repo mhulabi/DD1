@@ -47,9 +47,9 @@ bool minterms(string filename, int& var, vector<int>& minterm, vector<int>& dont
     }
 }
 
-vector<string> dec_to_bin(int var, vector<int>& minterm){
+vector<pair<string,string>> dec_to_bin(int var, vector<int>& minterm){
     int s,n;
-    vector<string> m(minterm.size());
+    vector<pair<string,string>> m(minterm.size());
     string r="";
     for(int i=0;i<minterm.size();i++)
     {
@@ -65,8 +65,9 @@ vector<string> dec_to_bin(int var, vector<int>& minterm){
             r="0"+r;
             s++;
         }
-        m[i]=r;
-        cout<<"     "<<m[i]<<endl;
+        m[i].first=r;
+        m[i].second=to_string(minterm[i]);
+        cout<<"     "<<m[i].first<<endl;
     }
     cout<<"-------------------------------"<<endl;
     return m;
@@ -81,8 +82,8 @@ int count_ones(int s,string x) {
     return count;
 }
 
-vector<string> comparison (int v, vector<string> a, vector<string> b, vector<bool>& check_a,vector<bool>& check_b){
-    vector<string> group,changed;
+vector<pair<string,string>> comparison (int v, vector<pair<string,string>> a, vector<pair<string,string>> b, vector<bool>& check_a,vector<bool>& check_b){
+    vector<pair<string,string>> group,changed;
     string one,two;
     vector<bool> check_bb;
     vector<bool> check_aa;
@@ -98,8 +99,8 @@ vector<string> comparison (int v, vector<string> a, vector<string> b, vector<boo
         repetition=0;
         for(int y=0;y<b.size();y++){
             //check_b.push_back(false);
-            one=a[x];
-            two=b[y];
+            one=a[x].first;
+            two=b[y].first;
             changed=b;
             flag=0;
             at=0;
@@ -115,7 +116,8 @@ vector<string> comparison (int v, vector<string> a, vector<string> b, vector<boo
                 check_b[y]=false;
                 check_aa[x]=false;
                 check_bb[y]=false;
-                changed[y][at]='_';
+                changed[y].first[at]='_';
+                changed[y].second=a[x].second+","+b[x].second;
                 for(int j=0;j<group.size();j++){
                     if(group[j]==changed[y])
                         repetition=1;
@@ -148,11 +150,11 @@ int main(){
     string name;
     vector<int> m;
     vector<int> d;
-    vector<string> mm;
-    vector<string> dd;
-    vector<vector<string>> groups;
-    vector<vector<vector<string>>> itterations;
-    vector<string> PI;
+    vector<pair<string,string>> mm;
+    vector<pair<string,string>> dd;
+    vector<vector<pair<string,string>>> groups;
+    vector<vector<vector<pair<string,string>>>> itterations;
+    vector<pair<string,string>> PI;
     bool b;
     b = minterms("/Users/andrewsinout/Desktop/Project QM/Project QM/DigitalData.txt", v, m, d);
     if (b == true){
@@ -160,28 +162,28 @@ int main(){
         mm = dec_to_bin(v,m);
         cout<<"The don't care terms:"<<endl;
         dd = dec_to_bin(v,d);
-        cout<<"hereee  "<<count_ones(v,mm.at(3))<<endl;
+        cout<<"hereee  "<<count_ones(v,mm.at(3).first)<<endl;
         
         /*for(int i=0;i<=v;i++){
             vector<string> groupi(0);
             groups.push_back(groupi);
         }*/
         for(int i=0;i<=v;i++){
-            vector<string> groupi;
+            vector<pair<string,string>> groupi;
             for(int j=0;j<mm.size();j++){
-                s=count_ones(v,mm[j]);
+                s=count_ones(v,mm[j].first);
                 if(s==i)
                     groupi.push_back(mm[j]);
             }
             
             for(int j=0;j<dd.size();j++){
-                s=count_ones(v,dd[j]);
+                s=count_ones(v,dd[j].first);
                 if(s==i)
                     groupi.push_back(dd[j]);
             }
             cout<<"group"<<i<<" :"<<endl;
             for (int x = 0;x<groupi.size();x++) {
-                cout<<groupi[x]<<endl;
+                cout<<groupi[x].first<<"("<<groupi[x].second<<")"<<endl;
             }
             cout<<"------"<<endl;
             groups.push_back(groupi);
@@ -197,14 +199,14 @@ int main(){
         itterations.push_back(groups);
         int n=0,var=v;
         while(itterations[n].size()!=0){
-            vector<vector<string>> combined_groups;
+            vector<vector<pair<string,string>>> combined_groups;
             for(int i=0;i<var;i++){
-                vector<string> combined_groupi;
+                vector<pair<string,string>> combined_groupi;
                 combined_groups.push_back(comparison(v,itterations[n][i],itterations[n][i+1],check_a,check_b));
                 combined_groupi=combined_groups[i];
                 cout<<"combined group"<<i<<" :"<<endl;
                 for (int x = 0;x<combined_groupi.size();x++) {
-                    cout<<combined_groupi[x]<<endl;
+                    cout<<combined_groupi[x].first<<"("<<combined_groupi[x].second<<")"<<endl;
                 }
                 cout<<"------"<<endl;
                 /*if(itterations[n].size()==0){
@@ -260,7 +262,7 @@ int main(){
         cout<<"----------------------------------------"<<endl;
         cout<<endl<<"The prime implicatns :"<<endl;
         for (int i = 0;i<PI.size();i++) {
-            cout<<PI[i]<<endl;
+            cout<<PI[i].first<<"("<<PI[i].second<<")"<<endl;
         }
         
         //insert the rest of the main here
