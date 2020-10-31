@@ -210,6 +210,7 @@ int main(){
             vector<string> combined_groupi(0);
             combined_groups.push_back(combined_groupi);
         }*/
+        bool empty=false;
         vector<bool> check_a;
         vector<bool> check_b;
         vector<bool> check_c;
@@ -269,9 +270,17 @@ int main(){
             n++;
             var--;
             check_c.clear();
+            for(int i=0;i<itterations[n-1].size();i++){
+                if(itterations[n-1][i].size()!=0)
+                    empty=true;
+            }
+            if(empty==false)
+                break;
+            empty=false;
         }
         for(int i=0;i<itterations[n-2].size();i++){
             for(int y=0;y<itterations[n-2][i].size();y++){
+                cout<<"hennaaaa"<<endl;
                     PI.push_back(itterations[n-2][i][y]);
                 }
         }
@@ -282,17 +291,22 @@ int main(){
             cout<<PI[i].first<<"("<<PI[i].second<<")"<<endl;
         }
         
-        
+        empty=false;
         vector<pair<string,string>> PII;
-        for(int i=0;i<PI.size();i++)
-            if(PI[i].first!=PI[i+1].first){
-                PII.push_back(PI[i]);
+        for(int i=0;i<PI.size();i++){
+            for(int j=i+1;j<PI.size();j++){
+                if(PI[i].first==PI[j].first){
+                    empty=true;
+                }
             }
-        
-        cout<<endl<<"The prime implicatns :"<<endl;
-        for (int i = 0;i<PII.size();i++) {
-            cout<<PII[i].first<<"("<<PII[i].second<<")"<<endl;
+            if(empty==false)
+                PII.push_back(PI[i]);
+            empty=false;
         }
+                cout<<endl<<"The prime implicatns :"<<endl;
+                for (int i = 0;i<PII.size();i++) {
+                    cout<<PII[i].first<<"("<<PII[i].second<<")"<<endl;
+                }
         
         cout<<endl<<endl<<"----------------------------"<<endl;
         cout<<endl<<"Essential prime implicants :"<<endl<<endl;
@@ -317,6 +331,65 @@ int main(){
                     cout<<EPI[i].first<<"("<<EPI[i].second<<")"<<endl;
                 }
 
+        
+        
+        
+//        string f;
+//        vector<string> r;
+//        for(int i=0;i<EPI.size();i++){
+//            istringstream g(EPI[i].second);
+//            while(getline(g,f,',')){
+//                r.push_back(f);
+//            }
+//        }
+//
+//        for(int i=0;i<m.size();i++)
+//            for(int j=0;j<r.size();j++){
+//                if(m[i]==stoi(r[j])){
+//                    m.erase(m.begin()+i);
+//                    i--;
+//                }
+//            }
+//
+//        for(int i=0;i<m.size();i++)
+//        cout<<endl<<m[i]<<endl;
+//
+//        bool flag=false;
+//        vector<pair<string,string>> PI_C;
+//        for(int i=0;i<PII.size();i++){
+//            flag=false;
+//            for(int j=0;j<EPI.size();j++){
+//                if(PII[i].first==EPI[j].first){
+//                    flag=true;
+//                }
+//                if(flag==false && (j % 2 == 0))
+//                    PI_C.push_back(PII[i]);
+//            }
+//        }
+//
+//        cout<<endl<<"The prime implicatns C :"<<endl<<endl;;
+//        for (int i=0;i<PI_C.size();i++) {
+//            cout<<PI_C[i].first<<"("<<PI_C[i].second<<")"<<endl;
+//        }
+//
+//        /////////////////////////////////////////////////
+//
+//        vector<pair<string,string>> EPI_C;
+//        for (int i=0;i<PI_C.size();i++){
+//            int counter=0;
+//            for (int j=0;j<r.size();j++){
+//                if (found(stoi(r[i]),PI_C[j].second)==true){
+//                    counter++;
+//                }
+//            }
+//            if (counter==r.size()){
+//                EPI.push_back(PI_C[i]);
+//            }
+//        }
+//        cout<<"HEREEEEEEEEEE"<<endl;
+//        for (int i=0;i<EPI.size();i++) {
+//            cout<<EPI[i].first<<"("<<EPI[i].second<<")"<<endl;
+//        }
         //insert the rest of the main here
     }
     else{
