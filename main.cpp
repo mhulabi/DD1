@@ -175,11 +175,11 @@ int main(){
     bool b;
     b = minterms("/Users/andrewsinout/Desktop/Project QM/Project QM/DigitalData.txt", v, m, d);
     if (b == true){
-        cout<<"The main terms:"<<endl;
+        cout<<"The minterms:"<<endl;
         mm = dec_to_bin(v,m);
         cout<<"The don't care terms:"<<endl;
         dd = dec_to_bin(v,d);
-        cout<<"hereee  "<<count_ones(v,mm.at(3).first)<<endl;
+        //cout<<"hereee  "<<count_ones(v,mm.at(3).first)<<endl;
         
         /*for(int i=0;i<=v;i++){
             vector<string> groupi(0);
@@ -262,15 +262,8 @@ int main(){
         }
         for(int i=0;i<itterations[n-2].size();i++){
             for(int y=0;y<itterations[n-2][i].size();y++){
-                cout<<"hennaaaa"<<endl;
                     PI.push_back(itterations[n-2][i][y]);
                 }
-        }
-        
-        cout<<"----------------------------------------"<<endl;
-        cout<<endl<<"The prime implicatns :"<<endl;
-        for (int i = 0;i<PI.size();i++) {
-            cout<<PI[i].first<<"("<<PI[i].second<<")"<<endl;
         }
         
         empty=false;
@@ -340,7 +333,7 @@ int main(){
             if(j!=EPI.size()-1)
                 cout<<"+";
         }
-        
+        cout<<endl;
         
         string f;
         vector<string> r;
@@ -358,8 +351,6 @@ int main(){
                     i--;
                 }
             }
-        
-
         
         cout<<"----------------"<<endl;
         cout<<"----------------"<<endl;
@@ -407,32 +398,19 @@ int main(){
             cout<<EPI[i].first<<"("<<EPI[i].second<<")"<<endl;
         }
         
-//        cout<<"----------------"<<endl;
-//        cout<<"----------------"<<endl;
-//
-//        for(int i=0;i<m.size();i++)
-//            cout<<m[i]<<endl;
-//
-//
-//        vector<pair<string, string>> EPI_C;
-//        vector <int> index1;
-//        for (int i=0;i<m.size();i++){
-//            int counter=0;
-//            for (int j=0;j<PI_C.size();j++){
-//                if (found(m[i],PI_C[j].second)==true){
-//                    counter++;
-//                    index.push_back(j);
-//                }
-//            }
-//            if (counter==1){
-//
-//                EPI.push_back(PI_C[index[0]]);
-//            }
-//            index.clear();
-//        }
-//        for (int i=0;i<EPI_C.size();i++) {
-//            cout<<EPI_C[i].first<<"("<<EPI_C[i].second<<")"<<endl;
-//        }
+        cout<<"----------------------------"<<endl;
+        cout<<endl<<"The boolean equation for the Essential prime implicatns After the dominationg colomns :"<<endl;
+        for(int j=0;j<EPI.size();j++){
+            for(int i=0;i<v;i++){
+                if(EPI[j].first[i]=='0')
+                    cout<<L[i]<<"'";
+                if(EPI[j].first[i]=='1')
+                    cout<<L[i];
+            }
+            if(j!=EPI.size()-1)
+                cout<<"+";
+        }
+        cout<<endl;
         
         cout<<"----------------"<<endl;
         cout<<"----------------"<<endl;
@@ -479,6 +457,7 @@ int main(){
             if(j!=EPI.size()-1)
                 cout<<"+";
         }
+        cout<<endl;
         
     }
     else{
